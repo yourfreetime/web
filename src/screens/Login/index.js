@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, Grid, TextField } from "@material-ui/core";
+import { Typography, Button, Card, Grid, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const LoginScreen = () => {
@@ -17,6 +17,9 @@ const LoginScreen = () => {
             />
           </Grid>
           <Grid className={classes.form} item xs={12} sm={7}>
+            <Typography className={classes.title} align="center" variant="h4">
+              Login
+            </Typography>
             <Grid spacing={3} container>
               <Grid item xs={12}>
                 <TextField
@@ -50,7 +53,7 @@ const LoginScreen = () => {
   );
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     height: "100vh",
     display: "flex",
@@ -64,14 +67,14 @@ const useStyles = makeStyles({
     alignItems: "center",
     flexDirection: "column"
   },
-  img: {
-    width: "80%",
-    height: "auto"
+  title: {
+    margin: 0,
+    marginBottom: 25,
+    fontWeight: "bold",
+    color: theme.palette.primary.main
   },
-  form: {
-    display: "flex",
-    alignItems: "center"
-  }
-});
+  img: { width: "80%", height: "auto" },
+  form: { display: "flex", justifyContent: "center", flexDirection: "column" }
+}));
 
 export default LoginScreen;
