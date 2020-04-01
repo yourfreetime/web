@@ -1,10 +1,5 @@
 import React from "react";
-import { AppBar } from "@material-ui/core";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import { TextField, Button, Card } from "@material-ui/core";
 
 import { useStyles } from "./Feed.style";
 
@@ -15,20 +10,38 @@ const FeedScreen = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6">News</Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-      <Container>
-        <CardPost />
-      </Container>
-    </div>
+    <Container>
+      <Card className={classes.rootCreatePost}>
+        <img
+          alt="Usuário"
+          className={classes.image}
+          src="https://www.driver-project.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+        />
+        <form className={classes.postForm}>
+          <TextField
+            id="email"
+            name="email"
+            label="O que você está fazendo no seu tempo livre?"
+            variant="outlined"
+            placeholder="O que você está fazendo no seu tempo livre?"
+            fullWidth
+            multiline
+            rowsMax={5}
+          />
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+          >
+            Publicar
+          </Button>
+        </form>
+      </Card>
+      <CardPost />
+      <CardPost />
+      <CardPost />
+      <CardPost />
+    </Container>
   );
 };
 

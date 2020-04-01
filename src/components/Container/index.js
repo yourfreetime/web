@@ -10,8 +10,8 @@ const ContainerComponent = ({ children }) => {
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 800,
-    margin: "auto",
-    marginTop: 16
+    margin: "0 auto",
+    paddingTop: 16
   }
 }));
 
