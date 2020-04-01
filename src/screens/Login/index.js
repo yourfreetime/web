@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, Button, Card, Grid, TextField } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { useStyles } from "./Login.style";
 
 const LoginScreen = () => {
   const classes = useStyles();
@@ -9,7 +9,7 @@ const LoginScreen = () => {
     <div className={classes.root}>
       <Card className={classes.card}>
         <Grid container>
-          <Grid item xs={12} sm={5}>
+          <Grid className={classes.rootImage} item xs={12} sm={5}>
             <img
               alt="Logo do YourFreeTime"
               src="/assets/logo.png"
@@ -52,29 +52,5 @@ const LoginScreen = () => {
     </div>
   );
 };
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  card: {
-    padding: 20,
-    width: 800,
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column"
-  },
-  title: {
-    margin: 0,
-    marginBottom: 25,
-    fontWeight: "bold",
-    color: theme.palette.primary.main
-  },
-  img: { width: "80%", height: "auto" },
-  form: { display: "flex", justifyContent: "center", flexDirection: "column" }
-}));
 
 export default LoginScreen;
