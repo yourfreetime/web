@@ -1,10 +1,10 @@
-import React from "react";
-import { TextField, Button, Card } from "@material-ui/core";
+import React from 'react';
+import { TextField, Button, Card } from '@material-ui/core';
 
-import { useStyles } from "./Feed.style";
+import { useStyles } from './Feed.style';
 
-import Container from "../../components/Container";
-import CardPost from "../../containers/CardPost";
+import Container from 'components/Container';
+import CardPost from 'containers/CardPost';
 
 const FeedScreen = () => {
   const classes = useStyles();

@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { useStyles } from "./ButtonFooter.style";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useStyles } from './ButtonFooter.style';
 
-import FlightTakeoff from "@material-ui/icons/FlightTakeoff";
-import Comment from "@material-ui/icons/Comment";
+import FlightTakeoff from '@material-ui/icons/FlightTakeoff';
+import Comment from '@material-ui/icons/Comment';
 
 const icons = {
   enhance: FlightTakeoff,
@@ -23,7 +23,7 @@ const ButtonFooterComponent = ({ onClick, icon, children }) => {
 };
 
 ButtonFooterComponent.propTypes = {
-  icon: PropTypes.oneOf(["enhance", "reply"]).isRequired
+  icon: PropTypes.oneOf(['enhance', 'reply']).isRequired
 };
 
 export default ButtonFooterComponent;

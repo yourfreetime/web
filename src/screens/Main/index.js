@@ -1,11 +1,11 @@
-import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { AppBar, Toolbar } from "@material-ui/core";
-import { useStyles } from "./Main.style";
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { AppBar, Toolbar } from '@material-ui/core';
+import { useStyles } from './Main.style';
 
-import FeedScreen from "../Feed";
-import RadarScreen from "../Radar";
-import UserScreen from "../User";
+import FeedScreen from 'screens/Feed';
+import RadarScreen from 'screens/Radar';
+import UserScreen from 'screens/User';
 
 const MainScreen = () => {
   const classes = useStyles();

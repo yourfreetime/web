@@ -1,6 +1,6 @@
-import React from "react";
-import { Typography, Button, Card, Grid, TextField } from "@material-ui/core";
-import { useStyles } from "./Login.style";
+import React from 'react';
+import { Typography, Button, Card, Grid, TextField } from '@material-ui/core';
+import { useStyles } from './Login.style';
 
 const LoginScreen = () => {
   const classes = useStyles();

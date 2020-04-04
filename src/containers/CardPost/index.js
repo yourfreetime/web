@@ -1,9 +1,9 @@
-import React from "react";
-import { Card, Divider } from "@material-ui/core";
+import React from 'react';
+import { Card, Divider } from '@material-ui/core';
 
-import { useStyles } from "./CardPost.style";
+import { useStyles } from './CardPost.style';
 
-import ButtonFooter from "./components/ButtonFooter";
+import ButtonFooter from './components/ButtonFooter';
 
 const CardPostContainer = () => {
   const classes = useStyles();
