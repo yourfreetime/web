@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-const ContainerComponent = ({ children }) => {
+const RootComponent = ({ children }) => {
   const classes = useStyles();
 
   return <section className={classes.root}>{children}</section>;
@@ -15,4 +15,4 @@ const useStyles = makeStyles({
   }
 });
 
-export default ContainerComponent;
+export default RootComponent;

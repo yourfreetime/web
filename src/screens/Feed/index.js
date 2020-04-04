@@ -3,14 +3,14 @@ import { TextField, Button, Card } from '@material-ui/core';
 
 import { useStyles } from './Feed.style';
 
-import Container from 'components/Container';
+import Root from 'components/Root';
 import CardPost from 'containers/CardPost';
 
 const FeedScreen = () => {
   const classes = useStyles();
 
   return (
-    <Container>
+    <Root>
       <Card className={classes.rootCreatePost}>
         <img
           alt="Usuário"
@@ -41,7 +41,7 @@ const FeedScreen = () => {
       <CardPost />
       <CardPost />
       <CardPost />
-    </Container>
+    </Root>
   );
 };
 
