@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
 import { useStyles } from './Main.style';
+import firebase from 'firebase/app';
 
 import FeedScreen from 'screens/Feed';
 import RadarScreen from 'screens/Radar';
 import UserScreen from 'screens/User';
 
-const MainScreen = () => {
+const MainScreen = ({ history }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        history.push('/login');
+      }
+    });
+  }, [history]);
 
   return (
     <>

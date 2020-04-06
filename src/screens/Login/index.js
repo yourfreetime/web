@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, Button, Card, Grid, TextField } from '@material-ui/core';
 import { useStyles } from './Login.style';
 
-const LoginScreen = () => {
+import firebase from 'firebase/app';
+
+const LoginScreen = ({ history }) => {
   const classes = useStyles();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   return (
     <div className={classes.root}>
@@ -28,6 +32,8 @@ const LoginScreen = () => {
                   label="E-mail"
                   variant="outlined"
                   fullWidth
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -38,10 +44,28 @@ const LoginScreen = () => {
                   type="password"
                   variant="outlined"
                   fullWidth
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button variant="contained" fullWidth color="primary">
+                <Button
+                  onClick={async () => {
+                    console.log(email, password);
+                    try {
+                      await firebase
+                        .auth()
+                        .signInWithEmailAndPassword(email, password);
+
+                      history.push('/');
+                    } catch (e) {
+                      console.log(e);
+                    }
+                  }}
+                  variant="contained"
+                  fullWidth
+                  color="primary"
+                >
                   Entrar
                 </Button>
               </Grid>
