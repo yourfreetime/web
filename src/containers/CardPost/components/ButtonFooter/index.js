@@ -10,8 +10,8 @@ const icons = {
   reply: Comment
 };
 
-const ButtonFooterComponent = ({ onClick, icon, children }) => {
-  const classes = useStyles();
+const ButtonFooterComponent = ({ onClick, icon, children, active }) => {
+  const classes = useStyles({ active });
   const Icon = icons[icon];
 
   return (
@@ -23,7 +23,12 @@ const ButtonFooterComponent = ({ onClick, icon, children }) => {
 };
 
 ButtonFooterComponent.propTypes = {
-  icon: PropTypes.oneOf(['enhance', 'reply']).isRequired
+  icon: PropTypes.oneOf(['enhance', 'reply']).isRequired,
+  active: PropTypes.bool
+};
+
+ButtonFooterComponent.defaultProps = {
+  active: false
 };
 
 export default ButtonFooterComponent;

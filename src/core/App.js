@@ -8,7 +8,12 @@ import 'firebase/firestore';
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#009688', greyDarken3: '#37474f', background: '#cfd8dc' }
+    primary: {
+      main: '#009688',
+      dark: '#00786c',
+      greyDarken3: '#37474f',
+      background: '#cfd8dc'
+    }
   }
 });
 

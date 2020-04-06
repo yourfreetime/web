@@ -24,6 +24,31 @@ export const createPost = async postObject => {
     .collection('posts')
     .add({
       ...postObject,
-      date: firebase.firestore.FieldValue.serverTimestamp()
+      date: firebase.firestore.Timestamp.fromDate(new Date())
+    });
+};
+
+export const likePost = async (postId, likeObject) => {
+  likeObject = {
+    ...likeObject,
+    date: firebase.firestore.Timestamp.fromDate(new Date())
+  };
+
+  return await firebase
+    .firestore()
+    .collection('posts')
+    .doc(postId)
+    .update({
+      likes: firebase.firestore.FieldValue.arrayUnion(likeObject)
+    });
+};
+
+export const unlikePost = async (postId, likeObject) => {
+  return await firebase
+    .firestore()
+    .collection('posts')
+    .doc(postId)
+    .update({
+      likes: firebase.firestore.FieldValue.arrayRemove(likeObject)
     });
 };

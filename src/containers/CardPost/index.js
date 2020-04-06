@@ -6,9 +6,10 @@ import moment from 'moment';
 import { useStyles } from './CardPost.style';
 
 import ButtonFooter from './components/ButtonFooter';
+import ButtonLike from './components/ButtonLike';
 import { IMAGE_DEFAULT } from 'core/constants';
 
-const CardPostContainer = ({ post }) => {
+const CardPostContainer = ({ post, currentUser }) => {
   const classes = useStyles();
   const [author, setAuthor] = useState({
     name: '',
@@ -39,7 +40,11 @@ const CardPostContainer = ({ post }) => {
       {post.text}
       <Divider className={classes.divider} />
       <div className={classes.title}>
-        <ButtonFooter icon="enhance">({countLikes}) Realçar</ButtonFooter>
+        <ButtonLike
+          post={post}
+          currentUser={currentUser}
+          countLikes={countLikes}
+        />
         <ButtonFooter icon="reply">({countComments}) Responder</ButtonFooter>
       </div>
     </Card>

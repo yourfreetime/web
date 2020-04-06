@@ -21,7 +21,7 @@ const FeedScreen = ({ currentUser }) => {
     <Root>
       <CreatePost currentUser={currentUser} />
       {posts.map(item => (
-        <CardPost key={item.id} post={item} />
+        <CardPost key={item.id} post={item} currentUser={currentUser} />
       ))}
     </Root>
   );
