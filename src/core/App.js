@@ -4,6 +4,7 @@ import RoutesCore from './Routes';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 const theme = createMuiTheme({
   palette: {

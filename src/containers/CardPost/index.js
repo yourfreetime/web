@@ -1,40 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Card, Divider } from '@material-ui/core';
+import moment from 'moment';
 
 import { useStyles } from './CardPost.style';
 
 import ButtonFooter from './components/ButtonFooter';
 
-const CardPostContainer = () => {
+const IMAGE_DEFAULT =
+  'https://www.driver-project.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png';
+
+const CardPostContainer = ({ post }) => {
   const classes = useStyles();
+  const [author, setAuthor] = useState({
+    name: '',
+    picture: IMAGE_DEFAULT
+  });
+
+  useEffect(() => {
+    post.author.get().then(snap => setAuthor({ ...snap.data(), id: snap.id }));
+  }, [post]);
 
   return (
     <Card className={classes.root}>
       <div className={classes.title}>
-        <img
-          alt="Usuário"
-          className={classes.image}
-          src="https://www.driver-project.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
-        />
+        <img alt="Usuário" className={classes.image} src={author.picture} />
         <div className={classes.titleName}>
-          <h2 className={classes.userName}>Henrique Costa</h2>
-          <h4 className={classes.date}>01/04/2020 - 08:00</h4>
+          <h2 className={classes.userName}>{author.name}</h2>
+          <h4 className={classes.date}>
+            {moment(post.date.toDate()).format('DD/MM/YYYY - hh:mm')}
+          </h4>
         </div>
       </div>
       <Divider className={classes.divider} />
-      Contrary to popular belief, Lorem Ipsum is not simply random text. It has
-      roots in a piece of classical Latin literature from 45 BC, making it over
-      2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
-      College in Virginia, looked up one of the more obscure Latin words,
-      consectetur, from a Lorem Ipsum passage, and going through the cites of
-      the word in classical literature, discovered the undoubtable source
+      {post.text}
       <Divider className={classes.divider} />
       <div className={classes.title}>
-        <ButtonFooter icon="enhance">Realçar</ButtonFooter>
-        <ButtonFooter icon="reply">Responder</ButtonFooter>
+        <ButtonFooter icon="enhance">
+          ({post.comments.length}) Realçar
+        </ButtonFooter>
+        <ButtonFooter icon="reply">
+          ({post.likes.length}) Responder
+        </ButtonFooter>
       </div>
     </Card>
   );
+};
+
+CardPostContainer.propTypes = {
+  post: PropTypes.object
 };
 
 export default CardPostContainer;

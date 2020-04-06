@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField, Button, Card } from '@material-ui/core';
 
 import { useStyles } from './Feed.style';
@@ -6,8 +6,19 @@ import { useStyles } from './Feed.style';
 import Root from 'components/Root';
 import CardPost from 'containers/CardPost';
 
+import { getPost } from 'services/post';
+
 const FeedScreen = () => {
   const classes = useStyles();
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getPost(posts => {
+      setPosts(posts);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <Root>
@@ -37,10 +48,9 @@ const FeedScreen = () => {
           </Button>
         </form>
       </Card>
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
+      {posts.map(item => (
+        <CardPost key={item.id} post={item} />
+      ))}
     </Root>
   );
 };
