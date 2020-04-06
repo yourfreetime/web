@@ -6,9 +6,7 @@ import moment from 'moment';
 import { useStyles } from './CardPost.style';
 
 import ButtonFooter from './components/ButtonFooter';
-
-const IMAGE_DEFAULT =
-  'https://www.driver-project.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png';
+import { IMAGE_DEFAULT } from 'core/constants';
 
 const CardPostContainer = ({ post }) => {
   const classes = useStyles();
@@ -21,6 +19,9 @@ const CardPostContainer = ({ post }) => {
     post.author.get().then(snap => setAuthor({ ...snap.data(), id: snap.id }));
   }, [post]);
 
+  const countComments = post.comments ? post.comments.length : 0;
+  const countLikes = post.likes ? post.likes.length : 0;
+
   return (
     <Card className={classes.root}>
       <div className={classes.title}>
@@ -28,7 +29,9 @@ const CardPostContainer = ({ post }) => {
         <div className={classes.titleName}>
           <h2 className={classes.userName}>{author.name}</h2>
           <h4 className={classes.date}>
-            {moment(post.date.toDate()).format('DD/MM/YYYY - hh:mm')}
+            {post.date
+              ? moment(post.date.toDate()).format('DD/MM/YYYY - hh:mm')
+              : ''}
           </h4>
         </div>
       </div>
@@ -36,12 +39,8 @@ const CardPostContainer = ({ post }) => {
       {post.text}
       <Divider className={classes.divider} />
       <div className={classes.title}>
-        <ButtonFooter icon="enhance">
-          ({post.comments.length}) Realçar
-        </ButtonFooter>
-        <ButtonFooter icon="reply">
-          ({post.likes.length}) Responder
-        </ButtonFooter>
+        <ButtonFooter icon="enhance">({countLikes}) Realçar</ButtonFooter>
+        <ButtonFooter icon="reply">({countComments}) Responder</ButtonFooter>
       </div>
     </Card>
   );

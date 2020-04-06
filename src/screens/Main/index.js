@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
 import { useStyles } from './Main.style';
 import firebase from 'firebase/app';
+
+import { getCurrentUser } from 'services/user';
 
 import FeedScreen from 'screens/Feed';
 import RadarScreen from 'screens/Radar';
@@ -10,10 +12,13 @@ import UserScreen from 'screens/User';
 
 const MainScreen = ({ history }) => {
   const classes = useStyles();
+  const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function(user) {
-      if (!user) {
+      if (user) {
+        getCurrentUser(user => setCurrentUser(user));
+      } else {
         history.push('/login');
       }
     });
@@ -39,7 +44,13 @@ const MainScreen = ({ history }) => {
       <div className={classes.root}>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={FeedScreen} />
+            <Route
+              exact
+              path="/"
+              component={props => (
+                <FeedScreen currentUser={currentUser} {...props} />
+              )}
+            />
             <Route exact path="/radar" component={RadarScreen} />
             <Route exact path="/me" component={UserScreen} />
           </Switch>

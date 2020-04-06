@@ -17,3 +17,13 @@ export const getPost = callback => {
 
   return unsubscribe;
 };
+
+export const createPost = async postObject => {
+  return await firebase
+    .firestore()
+    .collection('posts')
+    .add({
+      ...postObject,
+      date: firebase.firestore.FieldValue.serverTimestamp()
+    });
+};
