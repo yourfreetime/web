@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-export const getPost = callback => {
+export const allPosts = callback => {
   const unsubscribe = firebase
     .firestore()
     .collection('posts')
@@ -13,6 +13,21 @@ export const getPost = callback => {
       }));
 
       callback(docs);
+    });
+
+  return unsubscribe;
+};
+
+export const getPost = (postId, callback) => {
+  const unsubscribe = firebase
+    .firestore()
+    .collection('posts')
+    .doc(postId)
+    .onSnapshot(docSnapshot => {
+      callback({
+        ...docSnapshot.data(),
+        id: docSnapshot.id
+      });
     });
 
   return unsubscribe;

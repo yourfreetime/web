@@ -9,6 +9,7 @@ import { getCurrentUser } from 'services/user';
 import FeedScreen from 'screens/Feed';
 import RadarScreen from 'screens/Radar';
 import UserScreen from 'screens/User';
+import PostScreen from 'screens/Post';
 
 const MainScreen = ({ history }) => {
   const classes = useStyles();
@@ -52,6 +53,13 @@ const MainScreen = ({ history }) => {
               )}
             />
             <Route exact path="/radar" component={RadarScreen} />
+            <Route
+              exact
+              path="/post/:id"
+              component={props => (
+                <PostScreen currentUser={currentUser} {...props} />
+              )}
+            />
             <Route exact path="/me" component={UserScreen} />
           </Switch>
         </BrowserRouter>

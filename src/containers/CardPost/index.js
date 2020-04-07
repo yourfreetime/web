@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Card, Divider } from '@material-ui/core';
 import moment from 'moment';
 
@@ -45,7 +46,9 @@ const CardPostContainer = ({ post, currentUser }) => {
           currentUser={currentUser}
           countLikes={countLikes}
         />
-        <ButtonFooter icon="reply">({countComments}) Responder</ButtonFooter>
+        <ButtonFooter component={Link} to={`/post/${post.id}`} icon="reply">
+          ({countComments}) Responder
+        </ButtonFooter>
       </div>
     </Card>
   );

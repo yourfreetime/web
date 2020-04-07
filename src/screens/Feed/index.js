@@ -4,14 +4,14 @@ import Root from 'components/Root';
 import CardPost from 'containers/CardPost';
 import CreatePost from './components/CreatePost';
 
-import { getPost } from 'services/post';
+import { allPosts } from 'services/post';
 
 const FeedScreen = ({ currentUser }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getPost(posts => {
+    allPosts(posts => {
       setPosts(posts);
       setLoading(false);
     });
