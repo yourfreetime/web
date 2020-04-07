@@ -1,10 +1,12 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import RoutesCore from './Routes';
+import { SnackbarProvider } from 'notistack';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+
+import RoutesCore from './Routes';
 
 const theme = createMuiTheme({
   palette: {
@@ -29,7 +31,9 @@ firebase.initializeApp({
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <RoutesCore />
+    <SnackbarProvider maxSnack={3}>
+      <RoutesCore />
+    </SnackbarProvider>
   </ThemeProvider>
 );
 
