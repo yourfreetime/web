@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Root from 'components/Root';
+import Loader from 'components/Loader';
 import CardPost from 'containers/CardPost';
 import CreatePost from './components/CreatePost';
 
@@ -16,6 +17,10 @@ const FeedScreen = ({ currentUser }) => {
       setLoading(false);
     });
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <Root>

@@ -7,17 +7,9 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 import RoutesCore from './Routes';
+import { colors } from './constants';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#009688',
-      dark: '#00786c',
-      greyDarken3: '#37474f',
-      background: '#cfd8dc'
-    }
-  }
-});
+const theme = createMuiTheme({ palette: { primary: colors } });
 
 firebase.initializeApp({
   apiKey: 'AIzaSyB40DrzgKhP2eY2lYITPSmN6ypodYa3JYY',

@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles({
-  root: { padding: 16, marginBottom: 16 },
+  root: { padding: 16, marginBottom: 16, '&:last-child': { marginBottom: 0 } },
   title: { display: 'flex' },
   titleName: {
     display: 'flex',
