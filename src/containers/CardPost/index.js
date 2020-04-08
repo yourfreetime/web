@@ -8,6 +8,7 @@ import { useStyles } from './CardPost.style';
 
 import ButtonFooter from './components/ButtonFooter';
 import ButtonLike from './components/ButtonLike';
+import FormComment from './components/FormComment';
 import { IMAGE_DEFAULT } from 'core/constants';
 
 const CardPostContainer = ({ post, currentUser }) => {
@@ -16,6 +17,7 @@ const CardPostContainer = ({ post, currentUser }) => {
     name: '',
     picture: IMAGE_DEFAULT
   });
+  const [showComment, setShowComment] = useState(false);
 
   useEffect(() => {
     post.author.get().then(snap => setAuthor({ ...snap.data(), id: snap.id }));
@@ -30,11 +32,13 @@ const CardPostContainer = ({ post, currentUser }) => {
         <img alt="Usuário" className={classes.image} src={author.picture} />
         <div className={classes.titleName}>
           <h2 className={classes.userName}>{author.name}</h2>
-          <h4 className={classes.date}>
-            {post.date
-              ? moment(post.date.toDate()).format('DD/MM/YYYY - hh:mm')
-              : ''}
-          </h4>
+          <Link to={`/post/${post.id}`} style={{ textDecoration: 'none' }}>
+            <h4 className={classes.date}>
+              {post.date
+                ? moment(post.date.toDate()).format('DD/MM/YYYY - hh:mm')
+                : ''}
+            </h4>
+          </Link>
         </div>
       </div>
       <Divider className={classes.divider} />
@@ -46,10 +50,15 @@ const CardPostContainer = ({ post, currentUser }) => {
           currentUser={currentUser}
           countLikes={countLikes}
         />
-        <ButtonFooter component={Link} to={`/post/${post.id}`} icon="reply">
+        <ButtonFooter onClick={() => setShowComment(!showComment)} icon="reply">
           ({countComments}) Responder
         </ButtonFooter>
       </div>
+      <FormComment
+        postId={post.id}
+        show={showComment}
+        currentUser={currentUser}
+      />
     </Card>
   );
 };

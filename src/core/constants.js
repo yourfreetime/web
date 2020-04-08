@@ -5,5 +5,6 @@ export const colors = {
   main: '#009688',
   dark: '#00786c',
   greyDarken3: '#37474f',
+  grey: '#9e9e9e',
   background: '#cfd8dc'
 };

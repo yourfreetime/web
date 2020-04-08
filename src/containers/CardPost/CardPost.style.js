@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles(theme => ({
   root: { padding: 16, marginBottom: 16, '&:last-child': { marginBottom: 0 } },
   title: { display: 'flex' },
   titleName: {
@@ -9,8 +9,13 @@ export const useStyles = makeStyles({
     marginLeft: 16,
     justifyContent: 'center'
   },
-  image: { width: 80, height: 80, borderRadius: '100%' },
-  userName: { marginTop: 0, marginBottom: 10 },
-  date: { margin: 0 },
+  image: { width: 40, height: 40, borderRadius: '100%' },
+  userName: {
+    marginTop: 0,
+    marginBottom: 5,
+    fontSize: 18,
+    color: theme.palette.primary.greyDarken3
+  },
+  date: { margin: 0, fontSize: 13, color: theme.palette.primary.grey },
   divider: { margin: '16px 0px' }
-});
+}));

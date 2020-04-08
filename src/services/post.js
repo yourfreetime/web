@@ -67,3 +67,18 @@ export const unlikePost = async (postId, likeObject) => {
       likes: firebase.firestore.FieldValue.arrayRemove(likeObject)
     });
 };
+
+export const commentPost = async (postId, commentObject) => {
+  commentObject = {
+    ...commentObject,
+    date: firebase.firestore.Timestamp.fromDate(new Date())
+  };
+
+  return await firebase
+    .firestore()
+    .collection('posts')
+    .doc(postId)
+    .update({
+      comments: firebase.firestore.FieldValue.arrayUnion(commentObject)
+    });
+};
