@@ -27,7 +27,7 @@ const MainScreen = ({ history }) => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar className={classes.navBar}>
           <img
             alt="Logo do YourFreeTime"

@@ -9,6 +9,7 @@ import { useStyles } from './CardPost.style';
 import ButtonFooter from './components/ButtonFooter';
 import ButtonLike from './components/ButtonLike';
 import FormComment from './components/FormComment';
+import DropdownCard from './components/DropdownCard';
 import { IMAGE_DEFAULT } from 'core/constants';
 
 const CardPostContainer = ({ post, currentUser }) => {
@@ -28,6 +29,7 @@ const CardPostContainer = ({ post, currentUser }) => {
 
   return (
     <Card className={classes.root}>
+      <DropdownCard post={post} currentUser={currentUser} />
       <div className={classes.title}>
         <img alt="Usuário" className={classes.image} src={author.picture} />
         <div className={classes.titleName}>

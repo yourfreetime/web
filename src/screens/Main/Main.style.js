@@ -5,10 +5,16 @@ export const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.primary.background,
     minHeight: '100%'
   },
-  navBar: {
+  appBar: {
     backgroundColor: 'white',
     color: 'black',
-    borderBottom: `3px solid ${theme.palette.primary.main}`
+    borderBottom: `3px solid ${theme.palette.primary.main}`,
+    alignItems: 'center'
+  },
+  navBar: {
+    width: '100%',
+    maxWidth: 800,
+    padding: 0
   },
   logo: { height: 50, marginTop: -10 },
   userImage: { width: 50, height: 50, borderRadius: '100%' }
