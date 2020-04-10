@@ -43,6 +43,14 @@ export const createPost = async postObject => {
     });
 };
 
+export const updatePost = async (postId, text) => {
+  return await firebase
+    .firestore()
+    .collection('posts')
+    .doc(postId)
+    .update({ text });
+};
+
 export const deletePost = async postId => {
   return await firebase
     .firestore()

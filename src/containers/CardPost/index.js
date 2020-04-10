@@ -10,10 +10,13 @@ import ButtonFooter from './components/ButtonFooter';
 import ButtonLike from './components/ButtonLike';
 import FormComment from './components/FormComment';
 import DropdownCard from './components/DropdownCard';
+import EditPost from './components/EditPost';
+
 import { IMAGE_DEFAULT } from 'core/constants';
 
 const CardPostContainer = ({ post, currentUser }) => {
   const classes = useStyles();
+  const [editing, setEditing] = useState(false);
   const [author, setAuthor] = useState({
     name: '',
     picture: IMAGE_DEFAULT
@@ -29,7 +32,6 @@ const CardPostContainer = ({ post, currentUser }) => {
 
   return (
     <Card className={classes.root}>
-      <DropdownCard post={post} currentUser={currentUser} />
       <div className={classes.title}>
         <img alt="Usuário" className={classes.image} src={author.picture} />
         <div className={classes.titleName}>
@@ -44,7 +46,11 @@ const CardPostContainer = ({ post, currentUser }) => {
         </div>
       </div>
       <Divider className={classes.divider} />
-      {post.text}
+      {editing ? (
+        <EditPost post={post} onClose={() => setEditing(false)} />
+      ) : (
+        post.text
+      )}
       <Divider className={classes.divider} />
       <div className={classes.title}>
         <ButtonLike
@@ -60,6 +66,11 @@ const CardPostContainer = ({ post, currentUser }) => {
         postId={post.id}
         show={showComment}
         currentUser={currentUser}
+      />
+      <DropdownCard
+        post={post}
+        currentUser={currentUser}
+        onEdit={() => setEditing(true)}
       />
     </Card>
   );

@@ -17,7 +17,7 @@ import Alert from 'components/Alert';
 
 import { deletePost } from 'services/post';
 
-const DropdownCardComponent = ({ post, currentUser }) => {
+const DropdownCardComponent = ({ post, currentUser, onEdit }) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -43,7 +43,7 @@ const DropdownCardComponent = ({ post, currentUser }) => {
             {userOwner && (
               <>
                 <ListItem button>
-                  <ListItemText primary="Editar" />
+                  <ListItemText primary="Editar" onClick={onEdit} />
                 </ListItem>
                 <ListItem onClick={() => setOpenAlert(true)} button>
                   <ListItemText primary="Excluir" />
@@ -88,7 +88,7 @@ const DropdownCardComponent = ({ post, currentUser }) => {
 };
 
 DropdownCardComponent.propTypes = {
-  post: PropTypes.object
+  post: PropTypes.object.isRequired
 };
 
 export default DropdownCardComponent;

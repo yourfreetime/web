@@ -27,8 +27,8 @@ const FormCommentComponent = ({ postId, show, currentUser }) => {
           src={currentUser ? currentUser.picture : IMAGE_DEFAULT}
         />
         <TextField
-          id="email"
-          name="email"
+          id="commentPost"
+          name="commentPost"
           label="O que você está fazendo no seu tempo livre?"
           variant="outlined"
           placeholder="O que você está fazendo no seu tempo livre?"

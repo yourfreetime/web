@@ -20,8 +20,8 @@ const CreatePostComponent = ({ currentUser }) => {
       />
       <form className={classes.postForm}>
         <TextField
-          id="email"
-          name="email"
+          id="createPost"
+          name="createPost"
           label="O que você está fazendo no seu tempo livre?"
           variant="outlined"
           placeholder="O que você está fazendo no seu tempo livre?"
@@ -32,14 +32,16 @@ const CreatePostComponent = ({ currentUser }) => {
           onChange={e => setText(e.target.value)}
         />
         <Button
-          onClick={() => {
-            createPost({
+          onClick={async () => {
+            await createPost({
               author: firebase
                 .firestore()
                 .collection('users')
                 .doc(firebase.auth().currentUser.uid),
               text
             });
+
+            setText('');
           }}
           disabled={text.length === 0}
           className={classes.button}
