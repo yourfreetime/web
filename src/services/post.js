@@ -43,6 +43,14 @@ export const createPost = async postObject => {
     });
 };
 
+export const deletePost = async postId => {
+  return await firebase
+    .firestore()
+    .collection('posts')
+    .doc(postId)
+    .delete();
+};
+
 export const likePost = async (postId, likeObject) => {
   likeObject = {
     ...likeObject,

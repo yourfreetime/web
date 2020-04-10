@@ -8,13 +8,20 @@ import {
   ListItem,
   ListItemText
 } from '@material-ui/core';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import { useSnackbar } from 'notistack';
 
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import { useStyles } from './DropdownCard.style';
 
-const DropdownCard = ({ post, currentUser }) => {
+import Alert from 'components/Alert';
+
+import { deletePost } from 'services/post';
+
+const DropdownCardComponent = ({ post, currentUser }) => {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openAlert, setOpenAlert] = useState(false);
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -38,7 +45,7 @@ const DropdownCard = ({ post, currentUser }) => {
                 <ListItem button>
                   <ListItemText primary="Editar" />
                 </ListItem>
-                <ListItem button>
+                <ListItem onClick={() => setOpenAlert(true)} button>
                   <ListItemText primary="Excluir" />
                 </ListItem>
               </>
@@ -57,12 +64,31 @@ const DropdownCard = ({ post, currentUser }) => {
       >
         <ChevronLeft />
       </IconButton>
+      <Alert
+        open={openAlert}
+        title="Atenção!!!"
+        description="Tem certeza que deseja deletar essa sugestão?"
+        onConfirm={async () => {
+          try {
+            await deletePost(post.id);
+
+            enqueueSnackbar('Postagem deletada com sucesso', {
+              variant: 'success'
+            });
+          } catch (e) {
+            enqueueSnackbar('Ocorreu um erro ao deletar a postagem', {
+              variant: 'error'
+            });
+          }
+        }}
+        onClose={() => setOpenAlert(false)}
+      />
     </>
   );
 };
 
-DropdownCard.propTypes = {
+DropdownCardComponent.propTypes = {
   post: PropTypes.object
 };
 
-export default DropdownCard;
+export default DropdownCardComponent;
