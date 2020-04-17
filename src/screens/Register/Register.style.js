@@ -1,31 +1,55 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, styled } from '@material-ui/core/styles';
+import { Link as RouterLink } from 'react-router-dom';
 
-export const useStyles = makeStyles(theme => ({
+/**
+ * Experiment example with styled-jss
+ */
+export const Link = styled(RouterLink)(({ theme }) => ({
+  textDecoration: 'none',
+  color: theme.palette.primary.main,
+}));
+
+export const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.background,
   },
   rootImage: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  input: {
+    marginBottom: 12,
   },
   card: {
     padding: 20,
-    width: 800,
+    width: 340,
+    marginBottom: 12,
     display: 'flex',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+  },
+  blockedButton: {
+    flex: 1,
   },
   title: {
     margin: 0,
     marginBottom: 25,
     fontWeight: 'bold',
-    color: theme.palette.primary.main
+    lineHeight: 1,
+    color: theme.palette.primary.grey,
   },
-  img: { width: '80%', height: 'auto', textAlign: 'center' },
-  form: { display: 'flex', justifyContent: 'center', flexDirection: 'column' }
+  img: { width: 75, height: 'auto', textAlign: 'center' },
+  form: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
 }));
