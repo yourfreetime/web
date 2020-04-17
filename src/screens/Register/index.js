@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Typography, Button, Card, Grid, TextField } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
-import { useStyles } from './Register.style';
+import { useStyles, Link } from './Register.style';
 
 import { createUser } from 'services/user';
 
@@ -53,11 +52,10 @@ const RegisterScreen = ({ history }) => {
 
               try {
                 await createUser({ email, name, password });
+                history.push('/');
               } catch (e) {
                 enqueueSnackbar(e.message, { variant: 'error' });
               }
-
-              history.push('/');
             }}
           >
             <Grid spacing={3} container>

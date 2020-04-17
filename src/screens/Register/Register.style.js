@@ -1,4 +1,13 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, styled } from '@material-ui/core/styles';
+import { Link as RouterLink } from 'react-router-dom';
+
+/**
+ * Experiment example with styled-jss
+ */
+export const Link = styled(RouterLink)(({ theme }) => ({
+  textDecoration: 'none',
+  color: theme.palette.primary.main,
+}));
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +25,7 @@ export const useStyles = makeStyles((theme) => ({
     marginBottom: 16,
   },
   input: {
-    marginBottom: 6,
+    marginBottom: 12,
   },
   card: {
     padding: 20,
