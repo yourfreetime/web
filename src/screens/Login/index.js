@@ -30,7 +30,7 @@ const LoginScreen = ({ history }) => {
               Login
             </Typography>
             <form
-              onSubmit={async e => {
+              onSubmit={async (e) => {
                 e.preventDefault();
 
                 if (email && password) {
@@ -45,7 +45,7 @@ const LoginScreen = ({ history }) => {
                   }
                 } else {
                   enqueueSnackbar('Campos obrigatórios não foram informados', {
-                    variant: 'error'
+                    variant: 'error',
                   });
                 }
               }}
@@ -59,7 +59,7 @@ const LoginScreen = ({ history }) => {
                     variant="outlined"
                     fullWidth
                     value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -71,11 +71,11 @@ const LoginScreen = ({ history }) => {
                     variant="outlined"
                     fullWidth
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12} style={{ display: 'flex' }}>
-                  <Button component={Link} to="/register" variant="contained">
+                  <Button component={Link} to="/register" variant="text">
                     Registre-se
                   </Button>
                   <div style={{ flex: 1 }} />
