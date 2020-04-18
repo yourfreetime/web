@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
 import { useStyles } from './Main.style';
 import firebase from 'firebase/app';
@@ -10,6 +10,8 @@ import FeedScreen from 'screens/Feed';
 import RadarScreen from 'screens/Radar';
 import UserScreen from 'screens/User';
 import PostScreen from 'screens/Post';
+
+import { IMAGE_DEFAULT } from 'core/constants';
 
 const MainScreen = ({ history }) => {
   const classes = useStyles();
@@ -26,24 +28,30 @@ const MainScreen = ({ history }) => {
   }, [history]);
 
   return (
-    <>
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar className={classes.navBar}>
-          <img
-            alt="Logo do YourFreeTime"
-            src="/assets/logo-horizontal.png"
-            className={classes.logo}
-          />
-          <div style={{ flex: 1 }} />
-          <img
-            alt="Imagem do usuário"
-            src="https://www.driver-project.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
-            className={classes.userImage}
-          />
-        </Toolbar>
-      </AppBar>
-      <div className={classes.root}>
-        <BrowserRouter>
+    <BrowserRouter>
+      <>
+        <AppBar position="static" className={classes.appBar}>
+          <Toolbar className={classes.navBar}>
+            <Link to="/">
+              <img
+                alt="Logo do YourFreeTime"
+                src="/assets/logo-horizontal.png"
+                className={classes.logo}
+              />
+            </Link>
+            <div style={{ flex: 1 }} />
+            <Link to="/me">
+              <img
+                alt={`Imagem do ${
+                  currentUser ? currentUser.picture : 'usuário'
+                }`}
+                src={currentUser ? currentUser.picture : IMAGE_DEFAULT}
+                className={classes.userImage}
+              />
+            </Link>
+          </Toolbar>
+        </AppBar>
+        <div className={classes.root}>
           <Switch>
             <Route
               exact
@@ -75,9 +83,9 @@ const MainScreen = ({ history }) => {
               )}
             />
           </Switch>
-        </BrowserRouter>
-      </div>
-    </>
+        </div>
+      </>
+    </BrowserRouter>
   );
 };
 

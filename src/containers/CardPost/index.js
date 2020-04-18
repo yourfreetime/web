@@ -35,7 +35,9 @@ const CardPostContainer = ({ post, currentUser }) => {
       <div className={classes.title}>
         <img alt="Usuário" className={classes.image} src={author.picture} />
         <div className={classes.titleName}>
-          <h2 className={classes.userName}>{author.name}</h2>
+          <Link to={`/user/${author.id}`} style={{ textDecoration: 'none' }}>
+            <h2 className={classes.userName}>{author.name}</h2>
+          </Link>
           <Link to={`/post/${post.id}`} style={{ textDecoration: 'none' }}>
             <h4 className={classes.date}>
               {post.date
