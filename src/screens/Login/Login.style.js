@@ -1,17 +1,17 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.palette.primary.gray,
+    backgroundColor: theme.palette.primary.background
   },
   rootImage: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   card: {
     padding: 20,
@@ -19,14 +19,14 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: 'none',
     display: 'flex',
     alignItems: 'center',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   title: {
     margin: 0,
     marginBottom: 25,
     fontWeight: 'bold',
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.main
   },
   img: { width: '80%', height: 'auto', textAlign: 'center' },
-  form: { display: 'flex', justifyContent: 'center', flexDirection: 'column' },
+  form: { display: 'flex', justifyContent: 'center', flexDirection: 'column' }
 }));
