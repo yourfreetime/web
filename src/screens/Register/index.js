@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Typography, Button, Card, Grid, TextField } from '@material-ui/core';
+import { Typography, Grid, TextField } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
 import { useStyles, Link } from './Register.style';
+
+import Card from 'components/Card';
+import Button from 'components/Button';
 
 import { createUser } from 'services/user';
 
@@ -30,12 +33,12 @@ const RegisterScreen = ({ history }) => {
             Registre-se para saber o que fazer em seu tempo livre.
           </Typography>
           <form
-            onSubmit={async (e) => {
+            onSubmit={async e => {
               e.preventDefault();
 
               if (!email || !password || !password || !confirmPassword) {
                 enqueueSnackbar('Campos obrigatórios não foram informados', {
-                  variant: 'error',
+                  variant: 'error'
                 });
 
                 return;
@@ -69,7 +72,7 @@ const RegisterScreen = ({ history }) => {
                   size="small"
                   fullWidth
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                 />
                 <TextField
                   id="email"
@@ -80,7 +83,7 @@ const RegisterScreen = ({ history }) => {
                   size="small"
                   fullWidth
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                 />
                 <TextField
                   id="password"
@@ -92,7 +95,7 @@ const RegisterScreen = ({ history }) => {
                   size="small"
                   fullWidth
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                 />
                 <TextField
                   id="confirm_password"
@@ -104,7 +107,7 @@ const RegisterScreen = ({ history }) => {
                   size="small"
                   fullWidth
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={e => setConfirmPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} style={{ display: 'flex' }}>

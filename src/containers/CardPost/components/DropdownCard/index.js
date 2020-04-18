@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Popover,
-  Paper,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText
-} from '@material-ui/core';
+import { Paper, IconButton, ListItem, ListItemText } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import { useStyles } from './DropdownCard.style';
+import { useStyles, StyledList, StyledPopover } from './DropdownCard.style';
 
 import Alert from 'components/Alert';
 
@@ -30,32 +23,47 @@ const DropdownCardComponent = ({ post, currentUser, onEdit }) => {
 
   return (
     <>
-      <Popover
+      <StyledPopover
         id={id}
         open={open}
         anchorEl={anchorEl}
         onClose={() => setAnchorEl(null)}
+        style={{ borderRadius: 1 }}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         <Paper>
-          <List component="nav" aria-label="secondary mailbox folders">
+          <StyledList component="nav" aria-label="secondary mailbox folders">
             {userOwner && (
               <>
-                <ListItem button>
-                  <ListItemText primary="Editar" onClick={onEdit} />
+                <ListItem className={classes.item} button>
+                  <ListItemText
+                    classes={{ primary: classes.itemText }}
+                    primary="Editar"
+                    onClick={onEdit}
+                  />
                 </ListItem>
-                <ListItem onClick={() => setOpenAlert(true)} button>
-                  <ListItemText primary="Excluir" />
+                <ListItem
+                  className={classes.item}
+                  onClick={() => setOpenAlert(true)}
+                  button
+                >
+                  <ListItemText
+                    classes={{ primary: classes.itemText }}
+                    primary="Excluir"
+                  />
                 </ListItem>
               </>
             )}
-            <ListItem button>
-              <ListItemText primary="Salvar" />
+            <ListItem className={classes.item} button>
+              <ListItemText
+                classes={{ primary: classes.itemText }}
+                primary="Salvar"
+              />
             </ListItem>
-          </List>
+          </StyledList>
         </Paper>
-      </Popover>
+      </StyledPopover>
       <IconButton
         className={classes.button}
         onClick={event => setAnchorEl(event.currentTarget)}

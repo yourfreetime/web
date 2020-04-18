@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import firebase from 'firebase';
 import { useSnackbar } from 'notistack';
 
 import { useStyles } from './FormComment.style';
+
+import Button from 'components/Button';
 
 import { IMAGE_DEFAULT } from 'core/constants';
 import { commentPost } from 'services/post';

@@ -5,9 +5,10 @@ import {
   DialogTitle,
   DialogActions,
   DialogContent,
-  DialogContentText,
-  Button
+  DialogContentText
 } from '@material-ui/core';
+
+import Button from 'components/Button';
 
 const AlertComponent = ({ open, title, description, onConfirm, onClose }) => (
   <Dialog

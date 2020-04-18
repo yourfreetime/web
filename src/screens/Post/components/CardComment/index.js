@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card } from '@material-ui/core';
 import ArrowLeft from '@material-ui/icons/ArrowLeft';
 
 import { useStyles } from './CardComment.style';
+
+import Card from 'components/Card';
 
 import { IMAGE_DEFAULT } from 'core/constants';
 

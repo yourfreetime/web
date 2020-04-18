@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 import { useStyles } from './User.style';
 
+import Card from 'components/Card';
 import Root from 'components/Root';
 import CardPost from 'containers/CardPost';
 import Count from './components/Count';

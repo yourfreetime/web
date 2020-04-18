@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useSnackbar } from 'notistack';
 
 import { useStyles } from './EditPost.style';
+
+import Button from 'components/Button';
 
 import { updatePost } from 'services/post';
 

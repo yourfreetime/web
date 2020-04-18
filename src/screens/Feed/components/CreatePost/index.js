@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { TextField, Button, Card } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import firebase from 'firebase';
 
 import { useStyles } from './CreatePost.style';
+
+import Card from 'components/Card';
+import Button from 'components/Button';
 
 import { createPost } from 'services/post';
 import { IMAGE_DEFAULT } from 'core/constants';

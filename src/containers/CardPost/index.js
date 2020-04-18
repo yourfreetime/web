@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Card, Divider } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 import moment from 'moment';
 
 import { useStyles } from './CardPost.style';
 
+import Card from 'components/Card';
 import ButtonFooter from './components/ButtonFooter';
 import ButtonLike from './components/ButtonLike';
 import FormComment from './components/FormComment';

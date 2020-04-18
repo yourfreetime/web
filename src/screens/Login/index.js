@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Typography, Button, Card, Grid, TextField } from '@material-ui/core';
+import { Typography, Grid, TextField } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
 import { useStyles } from './Login.style';
+
+import Card from 'components/Card';
+import Button from 'components/Button';
 
 import firebase from 'firebase/app';
 
@@ -30,7 +33,7 @@ const LoginScreen = ({ history }) => {
               Login
             </Typography>
             <form
-              onSubmit={async (e) => {
+              onSubmit={async e => {
                 e.preventDefault();
 
                 if (email && password) {
@@ -45,7 +48,7 @@ const LoginScreen = ({ history }) => {
                   }
                 } else {
                   enqueueSnackbar('Campos obrigatórios não foram informados', {
-                    variant: 'error',
+                    variant: 'error'
                   });
                 }
               }}
@@ -59,7 +62,7 @@ const LoginScreen = ({ history }) => {
                     variant="outlined"
                     fullWidth
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -71,7 +74,7 @@ const LoginScreen = ({ history }) => {
                     variant="outlined"
                     fullWidth
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12} style={{ display: 'flex' }}>
