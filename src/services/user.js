@@ -1,5 +1,12 @@
 import firebase from 'firebase';
 
+export const getUser = async userId =>
+  await firebase
+    .firestore()
+    .collection('users')
+    .doc(userId)
+    .get();
+
 export const createUser = async userObject => {
   const idImage = Math.floor(Math.random() * 1000 + 1);
 

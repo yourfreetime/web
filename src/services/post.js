@@ -18,6 +18,29 @@ export const allPosts = callback => {
   return unsubscribe;
 };
 
+export const allPostsByUser = (userId, callback) => {
+  const userRef = firebase
+    .firestore()
+    .collection('users')
+    .doc(userId);
+
+  const unsubscribe = firebase
+    .firestore()
+    .collection('posts')
+    .where('author', '==', userRef)
+    .onSnapshot(querySnapshot => {
+      const docs = querySnapshot.docs.map(documentSnapshot => ({
+        ...documentSnapshot.data(),
+        id: documentSnapshot.id,
+        key: documentSnapshot.id
+      }));
+
+      callback(docs);
+    });
+
+  return unsubscribe;
+};
+
 export const getPost = (postId, callback) => {
   const unsubscribe = firebase
     .firestore()

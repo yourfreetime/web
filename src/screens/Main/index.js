@@ -60,7 +60,20 @@ const MainScreen = ({ history }) => {
                 <PostScreen currentUser={currentUser} {...props} />
               )}
             />
-            <Route exact path="/me" component={UserScreen} />
+            <Route
+              exact
+              path="/user/:id"
+              component={props => (
+                <UserScreen currentUser={currentUser} {...props} />
+              )}
+            />
+            <Route
+              exact
+              path="/me"
+              component={props => (
+                <UserScreen currentUser={currentUser} {...props} />
+              )}
+            />
           </Switch>
         </BrowserRouter>
       </div>
