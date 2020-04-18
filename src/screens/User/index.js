@@ -34,11 +34,6 @@ const UserScreen = () => {
           </Grid>
         </Grid>
       </Card>
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
-      <CardPost />
     </Root>
   );
 };

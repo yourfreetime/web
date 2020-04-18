@@ -46,7 +46,7 @@ const EditPostComponent = ({ post, onClose }) => {
               onClose();
             } catch {
               enqueueSnackbar('Ocorreu um erro ao editar a postagem', {
-                variant: 'errot'
+                variant: 'error'
               });
             }
           }}
