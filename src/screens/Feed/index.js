@@ -8,10 +8,8 @@ import CreatePost from './components/CreatePost';
 
 import { LIST_POSTS_FEED } from 'services/post';
 
-const FeedScreen = ({ currentUser }) => {
-  const { loading, error, data } = useQuery(LIST_POSTS_FEED);
-
-  console.log(loading, data, error);
+const FeedScreen = () => {
+  const { loading, data } = useQuery(LIST_POSTS_FEED);
 
   if (loading) {
     return <Loader />;
@@ -19,9 +17,9 @@ const FeedScreen = ({ currentUser }) => {
 
   return (
     <Root>
-      <CreatePost currentUser={currentUser} />
+      <CreatePost />
       {data.listPostsFeed.map(item => (
-        <CardPost key={item.id} post={item} currentUser={currentUser} />
+        <CardPost key={item.id} post={item} />
       ))}
     </Root>
   );

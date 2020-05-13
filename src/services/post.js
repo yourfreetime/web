@@ -21,6 +21,26 @@ export const LIST_POSTS_FEED = gql`
   }
 `;
 
+export const CREATE_POST = gql`
+  mutation createPost($text: String!) {
+    createPost(input: { text: $text }) {
+      id
+      text
+      dateCreated
+      author {
+        name
+        picture
+      }
+      likes {
+        date
+      }
+      comments {
+        dateCreated
+      }
+    }
+  }
+`;
+
 export const allPostsByUser = (userId, callback) => {
   const userRef = firebase
     .firestore()
@@ -57,16 +77,6 @@ export const getPost = (postId, callback) => {
     });
 
   return unsubscribe;
-};
-
-export const createPost = async postObject => {
-  return await firebase
-    .firestore()
-    .collection('posts')
-    .add({
-      ...postObject,
-      date: firebase.firestore.Timestamp.fromDate(new Date())
-    });
 };
 
 export const updatePost = async (postId, text) => {

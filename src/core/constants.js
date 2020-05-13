@@ -11,3 +11,7 @@ export const colors = {
   grey: '#9e9e9e',
   background: '#cfd8dc'
 };
+
+export const readCurrentUser = () => {
+  return JSON.parse(localStorage.getItem('yourfreetime@user'));
+};
