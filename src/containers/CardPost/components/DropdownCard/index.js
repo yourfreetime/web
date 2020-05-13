@@ -9,7 +9,7 @@ import DeletePost from '../DeletePost';
 
 import { readCurrentUser } from 'core/constants';
 
-const DropdownCardComponent = ({ post, currentUser, onEdit }) => {
+const DropdownCardComponent = ({ post, onEdit }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 

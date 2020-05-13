@@ -98,6 +98,21 @@ export const UPDATE_POST = gql`
   }
 `;
 
+export const CREATE_COMMENT = gql`
+  mutation createComment($text: String!, $postId: String!) {
+    createComment(input: { text: $text, postId: $postId }) {
+      id
+      text
+      user {
+        id
+        name
+        picture
+      }
+      dateCreated
+    }
+  }
+`;
+
 export const likePost = async (postId, likeObject) => {
   likeObject = {
     ...likeObject,
@@ -120,20 +135,5 @@ export const unlikePost = async (postId, likeObject) => {
     .doc(postId)
     .update({
       likes: firebase.firestore.FieldValue.arrayRemove(likeObject)
-    });
-};
-
-export const commentPost = async (postId, commentObject) => {
-  commentObject = {
-    ...commentObject,
-    date: firebase.firestore.Timestamp.fromDate(new Date())
-  };
-
-  return await firebase
-    .firestore()
-    .collection('posts')
-    .doc(postId)
-    .update({
-      comments: firebase.firestore.FieldValue.arrayUnion(commentObject)
     });
 };

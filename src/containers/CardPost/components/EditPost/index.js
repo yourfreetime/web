@@ -50,6 +50,7 @@ const EditPostComponent = ({ post, onClose }) => {
         placeholder="O que você está fazendo no seu tempo livre?"
         fullWidth
         multiline
+        autoFocus
         rowsMax={5}
         value={text}
         onChange={e => setText(e.target.value)}

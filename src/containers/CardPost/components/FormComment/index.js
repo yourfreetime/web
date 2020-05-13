@@ -1,24 +1,53 @@
 import React, { useState } from 'react';
-import { TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
+import { TextField } from '@material-ui/core';
+import { useMutation } from '@apollo/react-hooks';
 import { useSnackbar } from 'notistack';
 
 import { useStyles } from './FormComment.style';
 
 import Button from 'components/Button';
 
-import { IMAGE_DEFAULT } from 'core/constants';
-import { commentPost } from 'services/post';
+import { IMAGE_DEFAULT, readCurrentUser } from 'core/constants';
+import { CREATE_COMMENT, LIST_POSTS_FEED } from 'services/post';
 
-const FormCommentComponent = ({ postId, show, currentUser }) => {
+const FormCommentComponent = ({ postId, show }) => {
   const classes = useStyles();
   const [text, setText] = useState('');
   const { enqueueSnackbar } = useSnackbar();
+  const [createComment] = useMutation(CREATE_COMMENT, {
+    onCompleted: () => {
+      enqueueSnackbar('Comentário realizado com sucesso', {
+        variant: 'success'
+      });
+
+      setText('');
+    },
+    onError: () =>
+      enqueueSnackbar('Ocorreu um erro ao comentar a postagem', {
+        variant: 'error'
+      }),
+    update(cache, { data }) {
+      const { listPostsFeed } = cache.readQuery({ query: LIST_POSTS_FEED });
+
+      cache.writeQuery({
+        query: LIST_POSTS_FEED,
+        data: {
+          listPostsFeed: listPostsFeed.map(item =>
+            item.id === postId
+              ? { ...item, comments: data.createComment }
+              : item
+          )
+        }
+      });
+    }
+  });
 
   if (!show) {
     return <div />;
   }
+
+  const currentUser = readCurrentUser();
 
   return (
     <div className={classes.root}>
@@ -38,27 +67,14 @@ const FormCommentComponent = ({ postId, show, currentUser }) => {
           multiline
           rowsMax={5}
           value={text}
+          autoFocus
           size="small"
           onChange={e => setText(e.target.value)}
         />
       </div>
       <div style={{ textAlign: 'right' }}>
         <Button
-          onClick={async () => {
-            await commentPost(postId, {
-              text,
-              author: firebase
-                .firestore()
-                .collection('users')
-                .doc(currentUser.id)
-            });
-
-            enqueueSnackbar('Comentário realizado com sucesso', {
-              variant: 'success'
-            });
-
-            setText('');
-          }}
+          onClick={() => createComment({ variables: { text, postId } })}
           disabled={text.length === 0}
           className={classes.button}
           variant="contained"
@@ -72,7 +88,6 @@ const FormCommentComponent = ({ postId, show, currentUser }) => {
 };
 
 FormCommentComponent.propTypes = {
-  currentUser: PropTypes.object,
   show: PropTypes.bool
 };
 
