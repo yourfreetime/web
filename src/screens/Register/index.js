@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Typography, Grid, TextField } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
+import { onRegister } from 'services/login';
 
 import { useStyles, Link } from './Register.style';
 
 import Card from 'components/Card';
 import Button from 'components/Button';
-
-import { createUser } from 'services/user';
 
 const RegisterScreen = ({ history }) => {
   const classes = useStyles();
@@ -54,10 +53,11 @@ const RegisterScreen = ({ history }) => {
               }
 
               try {
-                await createUser({ email, name, password });
+                const result = await onRegister({ email, name, password });
+                localStorage.setItem('token', result.data.token);
                 history.push('/');
               } catch (e) {
-                enqueueSnackbar(e.message, { variant: 'error' });
+                enqueueSnackbar(e.response.data.message, { variant: 'error' });
               }
             }}
           >

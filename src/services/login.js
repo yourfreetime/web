@@ -7,3 +7,14 @@ export const onLogin = (email, password) => {
     password
   });
 };
+
+export const onRegister = ({ email, name, password }) => {
+  const idImage = Math.floor(Math.random() * 1000 + 1);
+
+  return axios.post(`${URL}/signup`, {
+    email,
+    name,
+    picture: `https://i.picsum.photos/id/${idImage}/500/500.jpg`,
+    password
+  });
+};

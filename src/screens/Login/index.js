@@ -37,11 +37,13 @@ const LoginScreen = ({ history }) => {
 
                 if (email && password) {
                   try {
-                    await onLogin(email, password);
-
+                    const result = await onLogin(email, password);
+                    localStorage.setItem('token', result.data.token);
                     history.push('/');
                   } catch (e) {
-                    enqueueSnackbar(e.message, { variant: 'error' });
+                    enqueueSnackbar(e.response.data.message, {
+                      variant: 'error'
+                    });
                   }
                 } else {
                   enqueueSnackbar('Campos obrigatórios não foram informados', {
