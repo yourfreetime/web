@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import gql from 'graphql-tag';
 
 export const LIST_POSTS_FEED = gql`
@@ -146,28 +145,3 @@ export const UNLIKE_POST = gql`
     }
   }
 `;
-
-export const likePost = async (postId, likeObject) => {
-  likeObject = {
-    ...likeObject,
-    date: firebase.firestore.Timestamp.fromDate(new Date())
-  };
-
-  return await firebase
-    .firestore()
-    .collection('posts')
-    .doc(postId)
-    .update({
-      likes: firebase.firestore.FieldValue.arrayUnion(likeObject)
-    });
-};
-
-export const unlikePost = async (postId, likeObject) => {
-  return await firebase
-    .firestore()
-    .collection('posts')
-    .doc(postId)
-    .update({
-      likes: firebase.firestore.FieldValue.arrayRemove(likeObject)
-    });
-};
