@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Grid, TextField } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
+import { onLogin } from 'services/login';
 
 import { useStyles } from './Login.style';
 
 import Card from 'components/Card';
 import Button from 'components/Button';
-
-import firebase from 'firebase/app';
 
 const LoginScreen = ({ history }) => {
   const classes = useStyles();
@@ -38,9 +37,7 @@ const LoginScreen = ({ history }) => {
 
                 if (email && password) {
                   try {
-                    await firebase
-                      .auth()
-                      .signInWithEmailAndPassword(email, password);
+                    await onLogin(email, password);
 
                     history.push('/');
                   } catch (e) {
