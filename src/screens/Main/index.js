@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
 import { useStyles } from './Main.style';
-import firebase from 'firebase/app';
-
-import { getCurrentUser } from 'services/user';
 
 import FeedScreen from 'screens/Feed';
 import RadarScreen from 'screens/Radar';
@@ -15,17 +12,14 @@ import { IMAGE_DEFAULT } from 'core/constants';
 
 const MainScreen = ({ history }) => {
   const classes = useStyles();
-  const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        getCurrentUser(user => setCurrentUser(user));
-      } else {
-        history.push('/login');
-      }
-    });
+    if (!localStorage.getItem('yourfreetime@token')) {
+      history.push('/login');
+    }
   }, [history]);
+
+  const currentUser = JSON.parse(localStorage.getItem('yourfreetime@user'));
 
   return (
     <BrowserRouter>
@@ -53,35 +47,11 @@ const MainScreen = ({ history }) => {
         </AppBar>
         <div className={classes.root}>
           <Switch>
-            <Route
-              exact
-              path="/"
-              component={props => (
-                <FeedScreen currentUser={currentUser} {...props} />
-              )}
-            />
+            <Route exact path="/" component={FeedScreen} />
             <Route exact path="/radar" component={RadarScreen} />
-            <Route
-              exact
-              path="/post/:id"
-              component={props => (
-                <PostScreen currentUser={currentUser} {...props} />
-              )}
-            />
-            <Route
-              exact
-              path="/user/:id"
-              component={props => (
-                <UserScreen currentUser={currentUser} {...props} />
-              )}
-            />
-            <Route
-              exact
-              path="/me"
-              component={props => (
-                <UserScreen currentUser={currentUser} {...props} />
-              )}
-            />
+            <Route exact path="/post/:id" component={PostScreen} />
+            <Route exact path="/user/:id" component={UserScreen} />
+            <Route exact path="/me" component={UserScreen} />
           </Switch>
         </div>
       </>

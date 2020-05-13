@@ -3,10 +3,10 @@ import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 
-import {URL} from "./constants"
+import { URL } from './constants';
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('yourfreetime@token');
   return {
     headers: {
       ...headers,

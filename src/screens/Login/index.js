@@ -38,7 +38,14 @@ const LoginScreen = ({ history }) => {
                 if (email && password) {
                   try {
                     const result = await onLogin(email, password);
-                    localStorage.setItem('token', result.data.token);
+                    localStorage.setItem(
+                      'yourfreetime@token',
+                      result.data.token
+                    );
+                    localStorage.setItem(
+                      'yourfreetime@user',
+                      JSON.stringify(result.data.user)
+                    );
                     history.push('/');
                   } catch (e) {
                     enqueueSnackbar(e.response.data.message, {
