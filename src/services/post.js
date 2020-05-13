@@ -71,21 +71,32 @@ export const GET_POST = gql`
   }
 `;
 
-export const updatePost = async (postId, text) => {
-  return await firebase
-    .firestore()
-    .collection('posts')
-    .doc(postId)
-    .update({ text });
-};
+export const DELETE_POST = gql`
+  mutation deletePost($postId: String!) {
+    deletePost(input: { postId: $postId })
+  }
+`;
 
-export const deletePost = async postId => {
-  return await firebase
-    .firestore()
-    .collection('posts')
-    .doc(postId)
-    .delete();
-};
+export const UPDATE_POST = gql`
+  mutation updatePost($text: String!, $postId: String!) {
+    updatePost(input: { text: $text, postId: $postId }) {
+      id
+      text
+      dateCreated
+      author {
+        id
+        name
+        picture
+      }
+      likes {
+        date
+      }
+      comments {
+        dateCreated
+      }
+    }
+  }
+`;
 
 export const likePost = async (postId, likeObject) => {
   likeObject = {

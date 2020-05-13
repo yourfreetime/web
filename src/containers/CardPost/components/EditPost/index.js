@@ -1,18 +1,44 @@
 import React, { useState } from 'react';
-import { TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import { TextField } from '@material-ui/core';
+import { useMutation } from '@apollo/react-hooks';
 import { useSnackbar } from 'notistack';
 
 import { useStyles } from './EditPost.style';
 
 import Button from 'components/Button';
 
-import { updatePost } from 'services/post';
+import { UPDATE_POST, LIST_POSTS_FEED } from 'services/post';
 
 const EditPostComponent = ({ post, onClose }) => {
   const classes = useStyles();
   const [text, setText] = useState(post.text);
   const { enqueueSnackbar } = useSnackbar();
+  const [updatePost] = useMutation(UPDATE_POST, {
+    onCompleted: () => {
+      enqueueSnackbar('Postagem editada com sucesso', {
+        variant: 'success'
+      });
+
+      onClose();
+    },
+    onError: () =>
+      enqueueSnackbar('Ocorreu um erro ao editar a postagem', {
+        variant: 'error'
+      }),
+    update(cache, { data }) {
+      const { listPostsFeed } = cache.readQuery({ query: LIST_POSTS_FEED });
+
+      cache.writeQuery({
+        query: LIST_POSTS_FEED,
+        data: {
+          listPostsFeed: listPostsFeed.map(item =>
+            item.id === post.id ? data.updatePost : item
+          )
+        }
+      });
+    }
+  });
 
   return (
     <div className={classes.root}>
@@ -37,21 +63,7 @@ const EditPostComponent = ({ post, onClose }) => {
           Cancelar
         </Button>
         <Button
-          onClick={async () => {
-            try {
-              await updatePost(post.id, text);
-
-              enqueueSnackbar('Postagem editada com sucesso', {
-                variant: 'success'
-              });
-
-              onClose();
-            } catch {
-              enqueueSnackbar('Ocorreu um erro ao editar a postagem', {
-                variant: 'error'
-              });
-            }
-          }}
+          onClick={() => updatePost({ variables: { postId: post.id, text } })}
           disabled={text.length === 0}
           className={classes.button}
           variant="contained"
