@@ -26,6 +26,9 @@ export const GET_USER = gql`
       }
       likes {
         date
+        user {
+          id
+        }
       }
       comments {
         dateCreated

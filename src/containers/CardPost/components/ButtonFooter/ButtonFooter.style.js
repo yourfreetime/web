@@ -13,7 +13,8 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     backgroundColor: 'transparent',
     '&:last-child': { marginRight: 0 },
-    '&:hover': { cursor: 'pointer' }
+    '&:hover': { cursor: 'pointer' },
+    '&:focus': { outline: 'none' }
   },
   image: { marginRight: 8 }
 }));

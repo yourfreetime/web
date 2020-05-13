@@ -1,34 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
+import { useMutation } from '@apollo/react-hooks';
 
 import ButtonFooter from '../ButtonFooter';
 
-import { likePost, unlikePost } from 'services/post';
+import { LIKE_POST, UNLIKE_POST, LIST_POSTS_FEED } from 'services/post';
+import { readCurrentUser } from 'core/constants';
 
-const ButtonLikeComponent = ({ currentUser, post, countLikes }) => {
-  let like;
-  if (post.likes) {
-    like = post.likes.find(
-      item => currentUser && item.user.id === currentUser.id
+const ButtonLikeComponent = ({ post, countLikes }) => {
+  const update = (cache, { data }) => {
+    const { listPostsFeed } = cache.readQuery({ query: LIST_POSTS_FEED });
+    const likes = data.createLike || data.deleteLike;
+
+    const posts = listPostsFeed.map(item =>
+      item.id === post.id ? { ...item, likes } : item
     );
-  }
+    cache.writeQuery({
+      query: LIST_POSTS_FEED,
+      data: { listPostsFeed: posts }
+    });
+  };
+  const [likePost] = useMutation(LIKE_POST, { update });
+  const [unlikePost] = useMutation(UNLIKE_POST, { update });
+
+  const currentUser = readCurrentUser();
+  const isLiked = post.likes.some(
+    item => currentUser && item.user.id === currentUser.id
+  );
 
   return (
     <ButtonFooter
       onClick={() => {
-        if (like) {
-          unlikePost(post.id, like);
+        if (isLiked) {
+          unlikePost({ variables: { postId: post.id } });
         } else {
-          likePost(post.id, {
-            user: firebase
-              .firestore()
-              .collection('user')
-              .doc(currentUser.id)
-          });
+          likePost({ variables: { postId: post.id } });
         }
       }}
-      active={!!like}
+      active={!!isLiked}
       icon="enhance"
     >
       ({countLikes}) Realçar
@@ -37,7 +46,6 @@ const ButtonLikeComponent = ({ currentUser, post, countLikes }) => {
 };
 
 ButtonLikeComponent.propTypes = {
-  currentUser: PropTypes.object,
   post: PropTypes.object,
   countLikes: PropTypes.number
 };

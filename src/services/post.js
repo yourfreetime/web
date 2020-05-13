@@ -14,6 +14,9 @@ export const LIST_POSTS_FEED = gql`
       }
       likes {
         date
+        user {
+          id
+        }
       }
       comments {
         dateCreated
@@ -35,6 +38,9 @@ export const CREATE_POST = gql`
       }
       likes {
         date
+        user {
+          id
+        }
       }
       comments {
         dateCreated
@@ -56,6 +62,9 @@ export const GET_POST = gql`
       }
       likes {
         date
+        user {
+          id
+        }
       }
       comments {
         id
@@ -90,6 +99,9 @@ export const UPDATE_POST = gql`
       }
       likes {
         date
+        user {
+          id
+        }
       }
       comments {
         dateCreated
@@ -109,6 +121,28 @@ export const CREATE_COMMENT = gql`
         picture
       }
       dateCreated
+    }
+  }
+`;
+
+export const LIKE_POST = gql`
+  mutation createLike($postId: String!) {
+    createLike(input: { postId: $postId }) {
+      date
+      user {
+        id
+      }
+    }
+  }
+`;
+
+export const UNLIKE_POST = gql`
+  mutation deleteLike($postId: String!) {
+    deleteLike(input: { postId: $postId }) {
+      date
+      user {
+        id
+      }
     }
   }
 `;

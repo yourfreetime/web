@@ -29,13 +29,12 @@ const EditPostComponent = ({ post, onClose }) => {
     update(cache, { data }) {
       const { listPostsFeed } = cache.readQuery({ query: LIST_POSTS_FEED });
 
+      const posts = listPostsFeed.map(item =>
+        item.id === post.id ? data.updatePost : item
+      );
       cache.writeQuery({
         query: LIST_POSTS_FEED,
-        data: {
-          listPostsFeed: listPostsFeed.map(item =>
-            item.id === post.id ? data.updatePost : item
-          )
-        }
+        data: { listPostsFeed: posts }
       });
     }
   });

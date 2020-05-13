@@ -30,15 +30,12 @@ const FormCommentComponent = ({ postId, show }) => {
     update(cache, { data }) {
       const { listPostsFeed } = cache.readQuery({ query: LIST_POSTS_FEED });
 
+      const posts = listPostsFeed.map(item =>
+        item.id === postId ? { ...item, comments: data.createComment } : item
+      );
       cache.writeQuery({
         query: LIST_POSTS_FEED,
-        data: {
-          listPostsFeed: listPostsFeed.map(item =>
-            item.id === postId
-              ? { ...item, comments: data.createComment }
-              : item
-          )
-        }
+        data: { listPostsFeed: posts }
       });
     }
   });
