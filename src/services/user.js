@@ -1,25 +1,35 @@
-import firebase from 'firebase';
+import gql from 'graphql-tag';
 
-export const getUser = async userId =>
-  await firebase
-    .firestore()
-    .collection('users')
-    .doc(userId)
-    .get();
-
-export const getCurrentUser = callback => {
-  firebase.auth().onAuthStateChanged(async user => {
-    if (user) {
-      const userObject = await firebase
-        .firestore()
-        .collection('users')
-        .doc(user.uid)
-        .get();
-
-      callback({
-        ...userObject.data(),
-        id: userObject.id
-      });
+export const GET_USER = gql`
+  query getUser($userId: String!) {
+    getUser(userId: $userId) {
+      id
+      name
+      picture
+      savedPosts {
+        date
+      }
     }
-  });
-};
+    listFollowers(filter: { userId: $userId }) {
+      user {
+        name
+      }
+    }
+    listPosts(filter: { authorId: $userId }) {
+      id
+      text
+      dateCreated
+      author {
+        id
+        name
+        picture
+      }
+      likes {
+        date
+      }
+      comments {
+        dateCreated
+      }
+    }
+  }
+`;

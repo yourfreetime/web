@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
+import { useQuery } from '@apollo/react-hooks';
 
 import { useStyles } from './User.style';
 
@@ -9,45 +10,25 @@ import CardPost from 'containers/CardPost';
 import Count from './components/Count';
 import Loader from 'components/Loader';
 
-import { allPostsByUser } from 'services/post';
-import { getUser } from 'services/user';
+import { GET_USER } from 'services/user';
+import { readCurrentUser } from 'core/constants';
+
+const getUserId = match => {
+  const currentUserId = readCurrentUser()._id;
+  return match && match.params.id ? match.params.id : currentUserId;
+};
 
 const UserScreen = ({ match, currentUser }) => {
-  const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState();
-  const [loading, setLoading] = useState(true);
   const classes = useStyles();
-
-  useEffect(() => {
-    let unsubscribe;
-
-    const getData = async () => {
-      if (match.params.id || currentUser) {
-        const userId =
-          match && match.params.id ? match.params.id : currentUser.id;
-
-        unsubscribe = allPostsByUser(userId, posts => {
-          setPosts(posts);
-        });
-
-        const userData = await getUser(userId);
-        setUser({ ...userData.data(), id: userData.uid });
-        setLoading(false);
-      }
-    };
-
-    getData();
-
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
-    };
-  }, [currentUser, match]);
+  const { loading, data } = useQuery(GET_USER, {
+    variables: { userId: getUserId(match) }
+  });
 
   if (loading) {
     return <Loader />;
   }
+
+  const user = data.getUser;
 
   return (
     <Root>
@@ -66,14 +47,14 @@ const UserScreen = ({ match, currentUser }) => {
           <Grid item xs={12} sm={2} />
           <Grid className={classes.counts} item xs={12} sm={5}>
             <Grid container>
-              <Count title="Publicações" count={posts.length} />
-              <Count title="Salvos" count={0} />
-              <Count title="Seguidores" count={0} />
+              <Count title="Publicações" count={data.listPosts.length} />
+              <Count title="Salvos" count={user.savedPosts.length} />
+              <Count title="Seguidores" count={data.listFollowers.length} />
             </Grid>
           </Grid>
         </Grid>
       </Card>
-      {posts.map(item => (
+      {data.listPosts.map(item => (
         <CardPost key={item.id} post={item} currentUser={currentUser} />
       ))}
     </Root>
