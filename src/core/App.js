@@ -1,6 +1,8 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
+import { ApolloProvider } from '@apollo/react-hooks';
+import apolloClient from './apolloClient';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -22,11 +24,13 @@ firebase.initializeApp({
 });
 
 const App = () => (
-  <ThemeProvider theme={theme}>
-    <SnackbarProvider maxSnack={3}>
-      <RoutesCore />
-    </SnackbarProvider>
-  </ThemeProvider>
+  <ApolloProvider client={apolloClient}>
+    <ThemeProvider theme={theme}>
+      <SnackbarProvider maxSnack={3}>
+        <RoutesCore />
+      </SnackbarProvider>
+    </ThemeProvider>
+  </ApolloProvider>
 );
 
 export default App;

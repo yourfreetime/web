@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
     "@material-ui/core": "^4.9.8",
     "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
@@ -14,6 +15,7 @@
     "apollo-link-http": "^1.5.17",
     "axios": "^0.19.2",
     "firebase": "^7.13.2",
+    "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
     "moment": "^2.24.0",
     "notistack": "^0.9.9",

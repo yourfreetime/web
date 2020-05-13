@@ -42,7 +42,7 @@ AlertComponent.propTypes = {
   onClose: PropTypes.func
 };
 
-AlertComponent.propTypes = {
+AlertComponent.defaultProps = {
   open: false
 };
 

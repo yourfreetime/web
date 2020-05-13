@@ -1,22 +1,25 @@
 import firebase from 'firebase';
+import gql from 'graphql-tag';
 
-export const allPosts = callback => {
-  const unsubscribe = firebase
-    .firestore()
-    .collection('posts')
-    .orderBy('date', 'desc')
-    .onSnapshot(querySnapshot => {
-      const docs = querySnapshot.docs.map(documentSnapshot => ({
-        ...documentSnapshot.data(),
-        id: documentSnapshot.id,
-        key: documentSnapshot.id
-      }));
-
-      callback(docs);
-    });
-
-  return unsubscribe;
-};
+export const LIST_POSTS_FEED = gql`
+  query listPostsFeed {
+    listPostsFeed {
+      id
+      text
+      dateCreated
+      author {
+        name
+        picture
+      }
+      likes {
+        date
+      }
+      comments {
+        dateCreated
+      }
+    }
+  }
+`;
 
 export const allPostsByUser = (userId, callback) => {
   const userRef = firebase
