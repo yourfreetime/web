@@ -43,20 +43,33 @@ export const CREATE_POST = gql`
   }
 `;
 
-export const getPost = (postId, callback) => {
-  const unsubscribe = firebase
-    .firestore()
-    .collection('posts')
-    .doc(postId)
-    .onSnapshot(docSnapshot => {
-      callback({
-        ...docSnapshot.data(),
-        id: docSnapshot.id
-      });
-    });
-
-  return unsubscribe;
-};
+export const GET_POST = gql`
+  query getPost($postId: String!) {
+    getPost(postId: $postId) {
+      id
+      text
+      dateCreated
+      author {
+        id
+        name
+        picture
+      }
+      likes {
+        date
+      }
+      comments {
+        id
+        text
+        user {
+          id
+          name
+          picture
+        }
+        dateCreated
+      }
+    }
+  }
+`;
 
 export const updatePost = async (postId, text) => {
   return await firebase

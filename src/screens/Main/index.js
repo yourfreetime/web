@@ -26,7 +26,7 @@ const MainScreen = ({ history }) => {
       <>
         <AppBar position="static" className={classes.appBar}>
           <Toolbar className={classes.navBar}>
-            <Link to="/">
+            <Link className={classes.link} to="/">
               <img
                 alt="Logo do YourFreeTime"
                 src="/assets/logo-horizontal.png"
@@ -34,7 +34,7 @@ const MainScreen = ({ history }) => {
               />
             </Link>
             <div style={{ flex: 1 }} />
-            <Link to="/me">
+            <Link className={classes.link} to="/me">
               <img
                 alt={`Imagem do ${
                   currentUser ? currentUser.picture : 'usuário'

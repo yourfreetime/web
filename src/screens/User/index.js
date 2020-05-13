@@ -18,7 +18,7 @@ const getUserId = match => {
   return match && match.params.id ? match.params.id : currentUserId;
 };
 
-const UserScreen = ({ match, currentUser }) => {
+const UserScreen = ({ match }) => {
   const classes = useStyles();
   const { loading, data } = useQuery(GET_USER, {
     variables: { userId: getUserId(match) }
@@ -55,7 +55,7 @@ const UserScreen = ({ match, currentUser }) => {
         </Grid>
       </Card>
       {data.listPosts.map(item => (
-        <CardPost key={item.id} post={item} currentUser={currentUser} />
+        <CardPost key={item.id} post={item} />
       ))}
     </Root>
   );

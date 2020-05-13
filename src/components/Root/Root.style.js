@@ -4,6 +4,6 @@ export const useStyles = makeStyles({
   root: {
     maxWidth: 800,
     margin: '0 auto',
-    padding: '16px 0px'
+    padding: 16
   }
 });

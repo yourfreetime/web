@@ -1,32 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
 
 import Root from 'components/Root';
 import Loader from 'components/Loader';
 import CardPost from 'containers/CardPost';
 import CardComment from './components/CardComment';
 
-import { getPost } from 'services/post';
+import { GET_POST } from 'services/post';
 
-const PostScreen = ({ match, currentUser }) => {
-  const [post, setPost] = useState();
-  const [loading, setLoading] = useState('true');
-
-  useEffect(() => {
-    const unsubscribe = getPost(match.params.id, post => {
-      setPost(post);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, [match]);
+const PostScreen = ({ match }) => {
+  const { loading, data } = useQuery(GET_POST, {
+    variables: { postId: match.params.id }
+  });
 
   if (loading) {
     return <Loader />;
   }
 
+  const post = data.getPost;
+
   return (
     <Root>
-      <CardPost post={post} currentUser={currentUser} />
+      <CardPost post={post} />
       {post.comments && (
         <>
           <h5>Comentários: </h5>

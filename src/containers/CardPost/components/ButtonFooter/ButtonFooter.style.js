@@ -11,6 +11,7 @@ export const useStyles = makeStyles(theme => ({
     color: ({ active }) =>
       active ? theme.palette.primary.dark : theme.palette.primary.greyDarken3,
     fontWeight: 600,
+    backgroundColor: 'transparent',
     '&:last-child': { marginRight: 0 },
     '&:hover': { cursor: 'pointer' }
   },
