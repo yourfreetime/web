@@ -11312,6 +11312,11 @@ yargs@^13.3.0:
     y18n "^4.0.0"
     yargs-parser "^13.1.2"
 
+yourfreetime@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/yourfreetime/-/yourfreetime-0.1.2.tgz#285c2a80ddc152f022d5b1b3abadc09d964245ff"
+  integrity sha512-2Xjn7sIGYYAYNZl3FwFYSTwDp8x7mywWfvjXHxjgtABCB13Kz+N2dokUHQ+Mw/FHIFCb9B8ThA5SstxFpm+RRA==
+
 zen-observable-ts@^0.8.21:
   version "0.8.21"
   resolved "https://registry.yarnpkg.com/zen-observable-ts/-/zen-observable-ts-0.8.21.tgz#85d0031fbbde1eba3cd07d3ba90da241215f421d"

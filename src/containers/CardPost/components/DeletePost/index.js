@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { ListItem, ListItemText } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import { useMutation } from '@apollo/react-hooks';
+import { updateDeletePost } from 'yourfreetime/cache';
+import { DELETE_POST } from 'yourfreetime/mutations';
 
 import { useStyles } from '../DropdownCard/DropdownCard.style';
 
 import Alert from 'components/Alert';
-
-import { DELETE_POST, LIST_POSTS_FEED } from 'services/post';
 
 const DeletePostComponent = ({ postId }) => {
   const classes = useStyles();
@@ -23,16 +23,7 @@ const DeletePostComponent = ({ postId }) => {
       enqueueSnackbar('Ocorreu um erro ao deletar a postagem', {
         variant: 'error'
       }),
-    update(cache) {
-      const { listPostsFeed } = cache.readQuery({ query: LIST_POSTS_FEED });
-
-      cache.writeQuery({
-        query: LIST_POSTS_FEED,
-        data: {
-          listPostsFeed: listPostsFeed.filter(item => item.id !== postId)
-        }
-      });
-    }
+    update: updateDeletePost.bind(this, { postId })
   });
 
   return (
