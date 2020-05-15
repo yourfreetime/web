@@ -61,7 +61,7 @@ const RegisterScreen = ({ history }) => {
                 );
                 history.push('/');
               } catch (e) {
-                enqueueSnackbar(e.response.data.message, { variant: 'error' });
+                enqueueSnackbar(e.message, { variant: 'error' });
               }
             }}
           >
