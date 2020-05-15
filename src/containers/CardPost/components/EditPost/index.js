@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { TextField } from '@material-ui/core';
 import { useMutation } from '@apollo/react-hooks';
 import { useSnackbar } from 'notistack';
+import { uUpdatePost } from 'yourfreetime/cache';
+import { UPDATE_POST } from 'yourfreetime/mutations';
 
 import { useStyles } from './EditPost.style';
 
 import Button from 'components/Button';
-
-import { UPDATE_POST, LIST_POSTS_FEED } from 'services/post';
 
 const EditPostComponent = ({ post, onClose }) => {
   const classes = useStyles();
@@ -26,17 +26,7 @@ const EditPostComponent = ({ post, onClose }) => {
       enqueueSnackbar('Ocorreu um erro ao editar a postagem', {
         variant: 'error'
       }),
-    update(cache, { data }) {
-      const { listPostsFeed } = cache.readQuery({ query: LIST_POSTS_FEED });
-
-      const posts = listPostsFeed.map(item =>
-        item.id === post.id ? data.updatePost : item
-      );
-      cache.writeQuery({
-        query: LIST_POSTS_FEED,
-        data: { listPostsFeed: posts }
-      });
-    }
+    update: uUpdatePost.bind(this, { postId: post.id })
   });
 
   return (

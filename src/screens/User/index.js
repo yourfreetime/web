@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
+import { GET_USER_DETAILS } from 'yourfreetime/queries';
 
 import { useStyles } from './User.style';
 
@@ -10,7 +11,6 @@ import CardPost from 'containers/CardPost';
 import Count from './components/Count';
 import Loader from 'components/Loader';
 
-import { GET_USER } from 'services/user';
 import { readCurrentUser } from 'core/constants';
 
 const getUserId = match => {
@@ -20,7 +20,7 @@ const getUserId = match => {
 
 const UserScreen = ({ match }) => {
   const classes = useStyles();
-  const { loading, data } = useQuery(GET_USER, {
+  const { loading, data } = useQuery(GET_USER_DETAILS, {
     variables: { userId: getUserId(match) }
   });
 

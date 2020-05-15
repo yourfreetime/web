@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { TextField } from '@material-ui/core';
 import { useMutation } from '@apollo/react-hooks';
 import { useSnackbar } from 'notistack';
+import { uCreateComment } from 'yourfreetime/cache';
+import { CREATE_COMMENT } from 'yourfreetime/mutations';
 
 import { useStyles } from './FormComment.style';
 
 import Button from 'components/Button';
-
-import { IMAGE_DEFAULT, readCurrentUser } from 'core/constants';
-import { CREATE_COMMENT, LIST_POSTS_FEED } from 'services/post';
+import { readCurrentUser, IMAGE_DEFAULT } from 'core/constants';
 
 const FormCommentComponent = ({ postId, show }) => {
   const classes = useStyles();
@@ -27,17 +27,7 @@ const FormCommentComponent = ({ postId, show }) => {
       enqueueSnackbar('Ocorreu um erro ao comentar a postagem', {
         variant: 'error'
       }),
-    update(cache, { data }) {
-      const { listPostsFeed } = cache.readQuery({ query: LIST_POSTS_FEED });
-
-      const posts = listPostsFeed.map(item =>
-        item.id === postId ? { ...item, comments: data.createComment } : item
-      );
-      cache.writeQuery({
-        query: LIST_POSTS_FEED,
-        data: { listPostsFeed: posts }
-      });
-    }
+    update: uCreateComment.bind(this, { postId })
   });
 
   if (!show) {

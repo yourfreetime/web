@@ -1,12 +1,11 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { GET_POST } from 'yourfreetime/queries';
 
 import Root from 'components/Root';
 import Loader from 'components/Loader';
 import CardPost from 'containers/CardPost';
 import CardComment from './components/CardComment';
-
-import { GET_POST } from 'services/post';
 
 const PostScreen = ({ match }) => {
   const { loading, data } = useQuery(GET_POST, {

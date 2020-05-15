@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ListItem, ListItemText } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import { useMutation } from '@apollo/react-hooks';
-import { updateDeletePost } from 'yourfreetime/cache';
+import { uDeletePost } from 'yourfreetime/cache';
 import { DELETE_POST } from 'yourfreetime/mutations';
 
 import { useStyles } from '../DropdownCard/DropdownCard.style';
@@ -23,7 +23,7 @@ const DeletePostComponent = ({ postId }) => {
       enqueueSnackbar('Ocorreu um erro ao deletar a postagem', {
         variant: 'error'
       }),
-    update: updateDeletePost.bind(this, { postId })
+    update: uDeletePost.bind(this, { postId })
   });
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
 import { useMutation } from '@apollo/react-hooks';
-import { updateCreatePost } from 'yourfreetime/cache';
+import { uCreatePost } from 'yourfreetime/cache';
 import { CREATE_POST } from 'yourfreetime/mutations';
 
 import { useStyles } from './CreatePost.style';
@@ -15,7 +15,7 @@ const CreatePostComponent = () => {
   const classes = useStyles();
   const [text, setText] = useState('');
   const [createPost] = useMutation(CREATE_POST, {
-    update: updateCreatePost.bind(this, {})
+    update: uCreatePost.bind(this, null)
   });
 
   const currentUser = readCurrentUser();
