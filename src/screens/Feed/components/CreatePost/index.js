@@ -15,6 +15,7 @@ const CreatePostComponent = () => {
   const classes = useStyles();
   const [text, setText] = useState('');
   const [createPost] = useMutation(CREATE_POST, {
+    onCompleted: () => setText(''),
     update: uCreatePost.bind(this, null)
   });
 
